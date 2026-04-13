@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -18,6 +19,7 @@ import java.util.UUID;
 @Table(name = "tb_users")
 @Getter
 @Setter
+@ToString(includeFieldNames = true)
 public class User{
 
     @Id
@@ -55,6 +57,7 @@ public class User{
     @Enumerated
     @Column(name = "roles", nullable = false, columnDefinition = "ENUM('ADMIN', 'USER')")
     private Roles roles;
+
 
     //private Set<> appoinmentList;
 }
