@@ -20,4 +20,14 @@ public class Utils {
 
         return emptyNames.toArray(new String[0]);
     }
+
+    public static boolean hasAnyNumber(String s){
+        for (Character c : s.toCharArray()){
+            if(Character.isDigit(c)){
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

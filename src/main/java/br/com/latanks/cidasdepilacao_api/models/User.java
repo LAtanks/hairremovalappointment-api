@@ -29,10 +29,11 @@ public class User{
 
     @NotBlank(message = "Nome não pode ser vazio")
     @Column(name = "name", length = 100, nullable = false)
+    @Size(min = 3, message = "Nome precisa ter no minimo 3 caracteres")
     private String name;
 
     @NotBlank(message = "Senha não pode ser vazia")
-    @Size(min = 8, message = "Senha precisa ter 8 digitos no minimo")
+    @Size(min = 8, max = 50, message = "Senha precisa ter 8 digitos no minimo e no maximo 50 caracteres")
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -44,7 +45,7 @@ public class User{
     @Column(name = "phoneNumber", nullable = false, unique = true)
     private String phoneNumber;
 
-    @DateTimeFormat
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "birthday", nullable = false)
     private LocalDate birthday;
 
@@ -56,7 +57,7 @@ public class User{
     private String picture;
 
     @Enumerated
-    @Column(name = "roles", nullable = false, columnDefinition = "ENUM('ADMIN', 'USER')")
+    @Column(name = "roles", nullable = true, columnDefinition = "ENUM('ADMIN', 'USER')")
     private Roles roles;
 
 
