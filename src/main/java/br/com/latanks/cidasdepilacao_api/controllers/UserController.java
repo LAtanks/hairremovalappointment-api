@@ -1,5 +1,6 @@
 package br.com.latanks.cidasdepilacao_api.controllers;
 
+import br.com.latanks.cidasdepilacao_api.exceptions.impl.InvalidCredentialsException;
 import br.com.latanks.cidasdepilacao_api.models.User;
 import br.com.latanks.cidasdepilacao_api.repositories.IUserRepository;
 import br.com.latanks.cidasdepilacao_api.utils.Utils;
@@ -29,6 +30,10 @@ public class UserController {
 
     @PostMapping("/")
     public ResponseEntity<User> create(@RequestBody @Valid User user){
+        this.userRepository.findByName(user.getName()).ifPresent(u -> {
+                    throw new RuntimeException("Este usuario ja é existe " + user.getName());
+                });
+
         var newUser = this.userRepository.save(user);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
@@ -36,7 +41,9 @@ public class UserController {
 
     @GetMapping("/{name}")
     public ResponseEntity<User> getUserByName(@PathVariable String name){
-        User user = userRepository.findByName(name).get();
+        User user = userRepository.findByName(name).orElseThrow(
+                () -> new InvalidCredentialsException("Usuario não encontrado")
+        );
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(user);
     }
@@ -51,8 +58,12 @@ public class UserController {
     @DeleteMapping("/")
     public ResponseEntity delete(@RequestParam(required = false) UUID id, @RequestParam(required = false) String name){
         User toDeleteUser = null;
-        if(id != null) toDeleteUser = this.userRepository.findById(id).get();
-        if(name != null || !name.isEmpty()) toDeleteUser = this.userRepository.findByName(name).get();
+        if(id != null) toDeleteUser = this.userRepository.findById(id).orElseThrow(
+                () -> new InvalidCredentialsException("Usuario não cadastrado")
+        );
+        if(name != null || !name.isEmpty()) toDeleteUser = this.userRepository.findByName(name).orElseThrow(
+                () -> new InvalidCredentialsException("Usuario não cadastrado")
+        );
 
         this.userRepository.delete(toDeleteUser);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -60,7 +71,9 @@ public class UserController {
 
     @PutMapping("/{id}")
     public ResponseEntity<User> update(@PathVariable UUID id, @RequestBody User user){
-        var existingUser = this.userRepository.findById(id).get();;
+        var existingUser = this.userRepository.findById(id).orElseThrow(
+                () -> new InvalidCredentialsException("Usuario não cadastrado no sistema.")
+        );
 
         BeanUtils.copyProperties(user, existingUser, Utils.getNullPropertyNames(user));
 
