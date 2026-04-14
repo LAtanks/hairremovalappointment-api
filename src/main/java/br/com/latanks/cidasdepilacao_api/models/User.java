@@ -2,6 +2,7 @@ package br.com.latanks.cidasdepilacao_api.models;
 
 
 import br.com.latanks.cidasdepilacao_api.models.enums.Roles;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -60,6 +61,8 @@ public class User{
     @Column(name = "roles", nullable = true, columnDefinition = "ENUM('ADMIN', 'USER')")
     private Roles roles;
 
-
-    //private Set<> appoinmentList;
+    @OneToOne
+    @JoinColumn(name = "appointment_id", nullable = false)
+    @JsonIgnore
+    private Appointment appointment;
 }
