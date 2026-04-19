@@ -5,6 +5,7 @@ import br.com.latanks.cidasdepilacao_api.models.Appointment;
 import br.com.latanks.cidasdepilacao_api.models.User;
 import br.com.latanks.cidasdepilacao_api.repositories.IAppointmentRepository;
 import br.com.latanks.cidasdepilacao_api.repositories.IUserRepository;
+import br.com.latanks.cidasdepilacao_api.services.AppointmentService;
 import br.com.latanks.cidasdepilacao_api.utils.Utils;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
@@ -23,72 +24,38 @@ import java.util.UUID;
 public class AppointmentController {
 
     @Autowired
-    private final IAppointmentRepository repository;
-    @Autowired
-    private final IUserRepository userRepository;
+    private final AppointmentService service;
 
-
-    public AppointmentController(IAppointmentRepository repository, IUserRepository userRepository) {
-        this.repository = repository;
-        this.userRepository = userRepository;
+    public AppointmentController(AppointmentService service) {
+        this.service = service;
     }
 
     @PostMapping
     public ResponseEntity<Appointment> create(@RequestBody @Valid Appointment appointment){
-        var Existingappointment = this.repository.findByUserId(appointment.getUser().getId())
-                .orElseThrow(() -> new RuntimeException("Este usuario ja tem um horario marcado")
-        );
+        var newAppointment = this.service.create(appointment);
 
-        var newAppointment = this.repository.save(appointment);
-        if(newAppointment.getHorary().isBefore(OffsetDateTime.now()))
-            throw new InvalidCredentialsException("Horario precisa depois do horario atual");
-        if(newAppointment.getHorary().isAfter(OffsetDateTime.now().plusMonths(3)))
-            throw new InvalidCredentialsException("Precisa ser menos de 3 meses");
-
-        var user = this.userRepository.findById(newAppointment.getUser().getId());
-        user.get().setAppointment(newAppointment);
         return ResponseEntity.status(HttpStatus.CREATED).body(newAppointment);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Appointment> getById(@PathVariable UUID id){
-        Appointment appointment = repository.findById(id).orElseThrow(
-                () -> new InvalidCredentialsException("Usuario não encontrado")
-        );
-
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(appointment);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(this.service.getById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List> getAllAppointment(){
-        List allAppointment = this.repository.findAll();
-
-        return ResponseEntity.status(HttpStatus.OK).body(allAppointment);
+    public ResponseEntity<List> getRegisteredsAppointments(){
+        return ResponseEntity.status(HttpStatus.OK).body(this.service.getRegisteredsAppointments());
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Appointment> update(@PathVariable UUID id, @RequestBody Appointment appointment){
-        var existingAppointment = this.repository.findById(id).orElseThrow(
-                () -> new InvalidCredentialsException("Horario não cadastrado no sistema.")
-        );
-
-        BeanUtils.copyProperties(appointment, existingAppointment, Utils.getNullPropertyNames(appointment));
-
-        var newUser = this.repository.save(existingAppointment);
-        newUser.setId(existingAppointment.getId());
-        return ResponseEntity.status(HttpStatus.OK).body(newUser);
+        var newAppointment = this.service.update(id, appointment);
+        return ResponseEntity.status(HttpStatus.OK).body(newAppointment);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id){
-        Appointment toDeleteUser = null;
-        if(id != null) toDeleteUser = this.repository.findById(id).orElseThrow(
-                () -> new InvalidCredentialsException("Horario não cadastrado")
-        );
-
-        this.repository.delete(toDeleteUser);
+        this.service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-
-
 }

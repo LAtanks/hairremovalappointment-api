@@ -1,7 +1,9 @@
 package br.com.latanks.cidasdepilacao_api.utils;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
+import org.springframework.beans.BeansException;
 
 import java.beans.PropertyDescriptor;
 import java.util.HashSet;
@@ -19,6 +21,10 @@ public class Utils {
         }
 
         return emptyNames.toArray(new String[0]);
+    }
+
+    public static void copyProperties(Object source, Object target){
+        BeanUtils.copyProperties(source, target, Utils.getNullPropertyNames(source));
     }
 
     public static boolean hasAnyNumber(String s){
