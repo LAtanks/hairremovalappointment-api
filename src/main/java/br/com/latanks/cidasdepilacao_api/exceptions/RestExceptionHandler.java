@@ -1,6 +1,8 @@
 package br.com.latanks.cidasdepilacao_api.exceptions;
 
 import br.com.latanks.cidasdepilacao_api.exceptions.impl.InvalidCredentialsException;
+import br.com.latanks.cidasdepilacao_api.exceptions.impl.InvalidDateTimeException;
+import br.com.latanks.cidasdepilacao_api.exceptions.impl.InvalidPhoneNumberException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -39,8 +41,30 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorResponse er = new ErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
                 ex.getClass().getSimpleName(),
-                List.of("Um dos dados ja cadastrado no sistema.")
+                List.of(ex.getMessage())
                 );
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(er);
+    }
+
+    @ExceptionHandler(InvalidDateTimeException.class)
+    public ResponseEntity<Object> invalidDateTimeHandle(InvalidDateTimeException ex){
+        ErrorResponse er = new ErrorResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                ex.getClass().getSimpleName(),
+                List.of(ex.getMessage())
+        );
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(er);
+    }
+
+    @ExceptionHandler(InvalidPhoneNumberException.class)
+    public ResponseEntity<Object> invalidPhoneNumberHandler(InvalidPhoneNumberException ex){
+        ErrorResponse er = new ErrorResponse(
+                HttpStatus.CONFLICT.value(),
+                ex.getClass().getSimpleName(),
+                List.of(ex.getMessage())
+        );
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(er);
     }

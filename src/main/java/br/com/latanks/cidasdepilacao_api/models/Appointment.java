@@ -35,7 +35,7 @@ public class Appointment {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "situation", nullable = false)
-    private Situation situation;
+    private Situation situation = Situation.PROGRESS;
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, updatable = false)

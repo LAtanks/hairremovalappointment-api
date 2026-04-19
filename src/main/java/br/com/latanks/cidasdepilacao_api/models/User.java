@@ -40,10 +40,10 @@ public class User{
 
     @Email(message = "Coloque um email valido")
     @NotBlank(message = "Precisa-se de um e-mail")
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "phoneNumber", nullable = false, unique = true)
+    @Column(name = "phoneNumber", nullable = false)
     private String phoneNumber;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -57,12 +57,11 @@ public class User{
     @Column(name = "picture", nullable = true)
     private String picture;
 
-    @Enumerated
-    @Column(name = "roles", nullable = true, columnDefinition = "ENUM('ADMIN', 'USER')")
-    private Roles roles;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "roles", columnDefinition = "ENUM('ADMIN', 'USER')")
+    private Roles roles = Roles.USER;
 
     @OneToOne
-    @JoinColumn(name = "appointment_id", nullable = false)
-    @JsonIgnore
+    @JoinColumn(name = "appointment_id", nullable = true)
     private Appointment appointment;
 }
