@@ -61,7 +61,7 @@ public class User{
     @Column(name = "roles", columnDefinition = "ENUM('ADMIN', 'USER')")
     private Roles roles = Roles.USER;
 
-    @OneToOne
+    @OneToOne(mappedBy = "user")
     @JoinColumn(name = "appointment_id", nullable = true)
     private Appointment appointment;
 }

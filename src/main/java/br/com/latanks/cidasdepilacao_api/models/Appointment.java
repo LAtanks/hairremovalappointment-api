@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -23,7 +24,7 @@ public class Appointment {
 
     @DateTimeFormat
     @Column(name = "horary", nullable = false)
-    private OffsetDateTime horary;
+    private LocalDateTime horary;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)

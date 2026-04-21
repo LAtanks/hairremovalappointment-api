@@ -1,5 +1,8 @@
 package br.com.latanks.cidasdepilacao_api.controllers;
 
+import br.com.latanks.cidasdepilacao_api.dtos.request.CreateAppointmentDTO;
+import br.com.latanks.cidasdepilacao_api.dtos.request.UpdateAppointmentDTO;
+import br.com.latanks.cidasdepilacao_api.dtos.response.CreatedAppointmentDTO;
 import br.com.latanks.cidasdepilacao_api.exceptions.impl.InvalidCredentialsException;
 import br.com.latanks.cidasdepilacao_api.models.Appointment;
 import br.com.latanks.cidasdepilacao_api.models.User;
@@ -31,24 +34,24 @@ public class AppointmentController {
     }
 
     @PostMapping
-    public ResponseEntity<Appointment> create(@RequestBody @Valid Appointment appointment){
+    public ResponseEntity<CreatedAppointmentDTO> create(@RequestBody @Valid CreateAppointmentDTO appointment){
         var newAppointment = this.service.create(appointment);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(newAppointment);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Appointment> getById(@PathVariable UUID id){
+    public ResponseEntity<CreatedAppointmentDTO> getById(@PathVariable UUID id){
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(this.service.getById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List> getRegisteredsAppointments(){
+    public ResponseEntity<List<CreatedAppointmentDTO>> getRegisteredsAppointments(){
         return ResponseEntity.status(HttpStatus.OK).body(this.service.getRegisteredsAppointments());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Appointment> update(@PathVariable UUID id, @RequestBody Appointment appointment){
+    public ResponseEntity<CreatedAppointmentDTO> update(@PathVariable("id") UUID id, @RequestBody UpdateAppointmentDTO appointment){
         var newAppointment = this.service.update(id, appointment);
         return ResponseEntity.status(HttpStatus.OK).body(newAppointment);
     }

@@ -1,5 +1,8 @@
 package br.com.latanks.cidasdepilacao_api.controllers;
 
+import br.com.latanks.cidasdepilacao_api.dtos.request.CreateUserDTO;
+import br.com.latanks.cidasdepilacao_api.dtos.request.UpdateUserDTO;
+import br.com.latanks.cidasdepilacao_api.dtos.response.CreatedUserDTO;
 import br.com.latanks.cidasdepilacao_api.exceptions.impl.InvalidCredentialsException;
 import br.com.latanks.cidasdepilacao_api.exceptions.impl.InvalidPhoneNumberException;
 import br.com.latanks.cidasdepilacao_api.models.Appointment;
@@ -34,14 +37,14 @@ public class UserController {
     private IAppointmentRepository appointmentRepository;
 
     @PostMapping("/")
-    public ResponseEntity<User> create(@RequestBody @Valid User user){
+    public ResponseEntity<CreatedUserDTO> create(@RequestBody @Valid CreateUserDTO user){
         var newUser = this.userService.create(user);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<User> getUserByName(@PathVariable String name){
+    public ResponseEntity<CreatedUserDTO> getUserByName(@PathVariable String name){
         var user = this.userService.getUserByName(name);
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(user);
@@ -61,7 +64,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> update(@PathVariable UUID id, @RequestBody User user){
+    public ResponseEntity<CreatedUserDTO> update(@PathVariable UUID id, @RequestBody UpdateUserDTO user){
         var newUser = this.userService.update(id, user);
         return ResponseEntity.status(HttpStatus.OK).body(newUser);
     }

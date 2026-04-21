@@ -3,13 +3,17 @@ package br.com.latanks.cidasdepilacao_api.exceptions;
 import br.com.latanks.cidasdepilacao_api.exceptions.impl.InvalidCredentialsException;
 import br.com.latanks.cidasdepilacao_api.exceptions.impl.InvalidDateTimeException;
 import br.com.latanks.cidasdepilacao_api.exceptions.impl.InvalidPhoneNumberException;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.RestClientResponseException;
@@ -26,7 +30,7 @@ import java.util.stream.Collectors;
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(InvalidCredentialsException.class)
-    private ResponseEntity<Object> invalidCrentialsHandler(InvalidCredentialsException ex){
+    private ResponseEntity<Object> invalidCredentialsHandler(InvalidCredentialsException ex){
         ErrorResponse er = new ErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
                 ex.getClass().getSimpleName(),
@@ -39,9 +43,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<Object> dataIntegrityViolationHandle(DataIntegrityViolationException ex){
         ErrorResponse er = new ErrorResponse(
-                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.CONFLICT.value(),
                 ex.getClass().getSimpleName(),
-                List.of(ex.getMessage())
+                List.of(ex.getLocalizedMessage())
                 );
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(er);
@@ -50,7 +54,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(InvalidDateTimeException.class)
     public ResponseEntity<Object> invalidDateTimeHandle(InvalidDateTimeException ex){
         ErrorResponse er = new ErrorResponse(
-                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.CONFLICT.value(),
                 ex.getClass().getSimpleName(),
                 List.of(ex.getMessage())
         );
@@ -69,12 +73,50 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(er);
     }
 
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Object> constraintViolationHandle(ConstraintViolationException ex){
+        ErrorResponse er = new ErrorResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                ex.getClass().getSimpleName(),
+                ex.getConstraintViolations()
+                        .stream()
+                        .map(ConstraintViolation::getMessage)
+                        .toList()
+        );
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(er);
+    }
+
+    @Nullable
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+        ErrorResponse er = new ErrorResponse(
+                status.value(),
+                ex.getClass().getSimpleName(),
+                List.of(ex.getMessage())
+        );
+
+        return ResponseEntity.status(status).body(er);
+    }
+
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         ErrorResponse er = new ErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
                 ex.getClass().getSimpleName(),
                 ex.getBindingResult().getFieldErrors().stream().map(erro -> erro.getField() + ": " + erro.getDefaultMessage())
                         .toList()
+        );
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(er);
+    }
+
+    @Nullable
+    @Override
+    protected ResponseEntity<Object> handleServletRequestBindingException(ServletRequestBindingException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+        ErrorResponse er = new ErrorResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                ex.getClass().getSimpleName(),
+                List.of(ex.getMessage())
         );
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(er);
