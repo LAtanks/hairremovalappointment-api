@@ -1,1 +1,1 @@
-rootProject.name = "cidasdepilacao-api"
+rootProject.name = "hairremovalappointment-api"

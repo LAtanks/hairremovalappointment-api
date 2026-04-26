@@ -2,7 +2,6 @@ package br.com.latanks.cidasdepilacao_api.models;
 
 
 import br.com.latanks.cidasdepilacao_api.models.enums.Roles;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -11,7 +10,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.validator.constraints.URL;
-import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -33,8 +31,7 @@ public class User{
     @Size(min = 3, message = "Nome precisa ter no minimo 3 caracteres")
     private String name;
 
-    @NotBlank(message = "Senha não pode ser vazia")
-    @Size(min = 8, max = 50, message = "Senha precisa ter 8 digitos no minimo e no maximo 50 caracteres")
+
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -61,7 +58,6 @@ public class User{
     @Column(name = "roles", columnDefinition = "ENUM('ADMIN', 'USER')")
     private Roles roles = Roles.USER;
 
-    @OneToOne(mappedBy = "user")
-    @JoinColumn(name = "appointment_id", nullable = true)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Appointment appointment;
 }

@@ -8,13 +8,13 @@ import br.com.latanks.cidasdepilacao_api.exceptions.impl.InvalidCredentialsExcep
 import br.com.latanks.cidasdepilacao_api.models.Appointment;
 import br.com.latanks.cidasdepilacao_api.repositories.IAppointmentRepository;
 import br.com.latanks.cidasdepilacao_api.repositories.IUserRepository;
+import br.com.latanks.cidasdepilacao_api.utils.AuthUtils;
 import br.com.latanks.cidasdepilacao_api.utils.Utils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,7 +34,12 @@ public class AppointmentService {
 
     @Transactional
     public CreatedAppointmentDTO create(CreateAppointmentDTO appointment){
-        if(this.appointmentRepository.findByUserId(appointment.userId()).isPresent())
+        String email = AuthUtils.getAuthenticatedEmail();
+
+        var user = this.userRepository.findByEmail(email)
+                .orElseThrow(() -> new InvalidCredentialsException("Usuario não encontrado"));
+
+        if(this.appointmentRepository.findByUserId(user.getId()).isPresent())
             throw new DataIntegrityViolationException("Este usuario ja tem um horario");
 
         if(appointment.horary().isBefore(LocalDateTime.now()))
@@ -42,8 +47,7 @@ public class AppointmentService {
         if(appointment.horary().isAfter(LocalDateTime.now().plusMonths(3)))
             throw new InvalidCredentialsException("Precisa ser menos de 3 meses");
 
-        var user = this.userRepository.findById(appointment.userId())
-                .orElseThrow(() -> new InvalidCredentialsException("Usuario não encontrado"));
+
 
         var entity = this.mapper.toEntity(appointment);
 
@@ -76,6 +80,18 @@ public class AppointmentService {
         );
 
         this.appointmentRepository.delete(toDelete);
+    }
+
+    @Transactional(readOnly = true)
+    public CreatedAppointmentDTO getMy() {
+        String email = AuthUtils.getAuthenticatedEmail();
+        var user = this.userRepository.findByEmail(email)
+                .orElseThrow(() -> new InvalidCredentialsException("Usuário não encontrado"));
+
+        var appointment = this.appointmentRepository.findByUserId(user.getId())
+                .orElseThrow(() -> new InvalidCredentialsException("Nenhum agendamento encontrado"));
+
+        return this.mapper.toResponseDTO(appointment);
     }
 
     @Transactional
