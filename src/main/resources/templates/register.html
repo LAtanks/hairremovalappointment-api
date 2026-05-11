@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/register.css">
+    <title>Cida's Depilação • Criar conta</title>
+</head>
+<body>
+    <main>
+
+        <div class="error-ovelay">
+            <span>Informação</span>
+            <hr>
+            <label id="error-message">Coxinha</label>
+            <button onclick="hideInfo">OK</button>
+        </div>
+
+        <div id="login" style="display: none;">
+            <div>
+                <span for="username">Nome</span>
+                <input type="text" name="username" id="username" placeholder="Coloque seu nome">
+                <span for="username" class="error-username">Messagem De error</span>
+            </div>
+            <div>
+                <label for="password">Senha</label>
+                <input type="password" name="password" id="password">
+                <label for="password" class="error-password"></label>
+            </div>   
+        </div>
+
+        <div id="register">
+            <header>
+                <h3>Cida's Depilação</h3>
+                <span>Criar conta</span>
+            </header>
+
+
+            <div class="username-container">
+                <label for="username">Nome Completo</label>
+                <input type="text" name="username" id="username" placeholder="Maria Silva">
+                <label for="username" class="error error-username"></label>
+            </div>
+            <div>
+                <label for="password">Senha</label>
+                <input placeholder="********" type="password" name="password" id="password">
+                <label for="password" class="error error-password"></label>
+            </div>   
+
+            <div>
+                <label for="email">E-mail</label>
+                <input placeholder="maria@email.com" type="email" name="email" id="email">
+                <label for="email" class="error error-email"></label>
+            </div>
+
+            <div>
+                <label for="phoneNumber">Telefone</label>
+                <input placeholder="(31) 99999-9999" type="tel" name="phoneNumber" id="phoneNumber"  pattern="\(\d{2}\)\s\d{5}-\d{4}">
+                <label for="phoneNumber" class="error error-phoneNumber"></label>
+            </div>
+
+            <div>
+                <label for="birthday">Data de nascimento</label>
+                <input placeholder="01/01/2000" type="date" name="birthday" id="birthday" >
+                <label for="birthday" class="error error-birthday"></label>
+            </div>
+
+            <button type="submit" class="btn-submit">Criar conta</button>
+
+            <p>Ja tem conta? <a href="login">Entrar</a></p>
+        </div>
+    </main>
+
+    <script src="js/register.js"></script>
+</body>
+</html>

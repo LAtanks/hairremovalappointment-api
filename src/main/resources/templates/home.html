@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/home.css">
+    <title>Cida's depilacao • Home</title>
+</head>
+
+<body>
+    <header id="user-header">
+        <picture id="user-picture">
+            <img src="" alt="">
+        </picture>
+        <span>Olá, <span id="username"></span></span>
+        <p>Bem-vinda de volta!</p>
+    </header>
+    <main>
+        <div class="error-overlay">
+            <span>Informação</span>
+            <hr>
+            <label class="error-message">Coxinha</label>
+            <button>OK</button>
+        </div>
+
+        <ul class="navbar">
+            <li onclick="option('inicio')">Inicio</li>
+            <li onclick="option('agendar')">Agendar</li>
+            <li onclick="option('perfil')">Perfil</li>
+        </ul>
+
+        <section id="my-appointments">
+            <h3>Meus agendamentos</h3>
+            <hr>
+            <ul id="appointments-list">
+
+            </ul>
+        </section>
+
+        <section style="display: none;"  id="create-appointment">
+            <h3>Novo agendamento</h3>
+            <div>
+                <h4>
+                    Escolha o servico
+                </h4>
+                <hr>
+                <span>servico</span>
+                <input placeholder="Perna, Buso, etc" type="text" id="service">
+                <span>Data</span>
+                <input type="date" name="date" id="date">
+                <span>Horario</span>
+                <input type="time" name="time" id="time">
+
+                <div>
+                    <h4>Metodo de pagamento</h4>
+                    <ul>
+                        <li>
+                            <input type="radio" name="payment" id="pix">
+                            <label for="pix">Pix</label>
+                            <span>Pagamento na hora</span>
+                        </li>
+                        <li>
+                            <input type="radio" name="payment" id="card">
+                            <label for="card">Cartão de credito/debito</label>
+                            <span>Em até 3x</span>
+                        </li>
+                        <li>
+                            <input type="radio" name="payment" id="cash">
+                            <label for="cash">Dinheiro</label>
+                            <span>Pagar no local</span >
+                        </li>
+                    </ul>
+                </div>
+                <button class="btn-create-appointment">Confirmar agendamento</button>
+
+            </div>
+        </section>
+    </main>
+    <script src="js/home.js"></script>
+</body>
+</html>

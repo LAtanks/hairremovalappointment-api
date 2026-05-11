@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/adminPanel.css">
+    <title>Painel do administrador</title>
+</head>
+<body>
+    <header>
+        <div>
+            <img src="Captura de tela 2026-04-01 165344.png" alt="" id="user-picture">
+            <h4 id="user-name">Nome do usuário</h4>
+        </div>
+    </header>
+    <main>
+        <div class="error-overlay">
+            <span>Informação</span>
+            <hr>
+            <label class="error-message">Coxinha</label>
+            <button>OK</button>
+        </div>
+        
+        <ul class="navbar">
+            <li onclick="option('geral')">Visão geral</li>
+            <li onclick="option('users')">Usuarios</li>
+            <li onclick="option('calendar')">Agenda</li>
+        </ul>
+
+        <ul id="informations">
+            <li id="appts"><span></span>agendamentos</li>
+            <li id="pendings"><span></span>pendentes</li>
+            <li id="users"><span></span>clientes</li>
+        </ul>
+
+        <section id="pending-appointments" >
+            <h4>Solicitações pendentes</h4>
+            <ul>
+                
+            </ul>
+
+            <h4>Solicitações recusadas/aceitas</h4>
+            <ul>
+                
+            </ul>
+        </section>
+
+        <section id="user-list" style="display: none;">
+            <h4>Usuarios registrados</h4>
+            <ul>
+                
+            </ul>
+        </section>
+
+        <section id="calendar" style="display: none;">
+            <h4>Calendário — Abril 2025</h4>
+            <table class="calendar-table">
+                <thead>
+                <tr>
+                    <th>Seg</th><th>Ter</th><th>Qua</th>
+                    <th>Qui</th><th>Sex</th><th>Sab</th><th>Dom</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td></td><td>1</td><td>2</td>
+                    <td class="has-appt">3</td><td>4</td><td>5</td><td>6</td>
+                </tr>
+                <tr>
+                    <td class="has-appt">7</td><td>8</td><td>9</td>
+                    <td>10</td><td class="has-appt">11</td><td>12</td><td>13</td>
+                </tr>
+                <tr>
+                    <td>14</td><td class="has-appt">15</td><td>16</td>
+                    <td>17</td><td>18</td><td class="has-appt">19</td><td>20</td>
+                </tr>
+                <tr>
+                    <td>21</td><td>22</td><td>23</td>
+                    <td>24</td><td>25</td><td>26</td><td class="has-appt">27</td>
+                </tr>
+                <tr>
+                    <td class="today">28</td><td class="has-appt">29</td><td>30</td>
+                    <td></td><td></td><td></td><td></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="calendar-legend">
+                <span class="legend-item">
+                <span class="legend-box has-appt"></span> Com agendamento
+                </span>
+                <span class="legend-item">
+                <span class="legend-box today"></span> Hoje
+                </span>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/adminPanel.js"></script>
+</body>
+</html>

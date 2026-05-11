@@ -1,0 +1,513 @@
+:root{
+    --rosa-principal: #D4537E;
+    --rosa-escuro: #993556;
+    --rosa-profundo: #4B1528;
+    --rosa-medio: #72243E;
+    --rosa-fundo: #FBEAF0;
+    --rosa-claro: #F4C0D1;
+    --rosa-medio-claro: #ED93B1;
+}
+
+body{
+    background-color: var(--rosa-fundo);
+    font-family: 'Arial', sans-serif;
+}
+
+header{
+    
+    position: relative;
+    left: 50vw;
+    top: 10vh;
+    transform: translate(-50%, -50%);
+
+    border: 1px solid var(--rosa-escuro);
+    border-radius: 10px;
+
+    width: 90%;
+    max-width: 550px;
+    max-height: 500px;
+    padding: 10px;
+
+    display: flex;
+
+    text-align: center;
+    justify-content: center;
+
+    margin-top: 50px;
+    background-color: white;
+}
+
+header #user-name{
+    color: var(--rosa-escuro);
+    font-size: 14pt;
+    margin: 0;
+    font-weight: bold;
+}
+
+header #user-picture{
+    width: 65px;
+    height: 65px;
+
+    border-radius: 50%;
+    border: 01px solid var(--rosa-escuro);
+}
+
+header div{
+    margin: 0;
+    padding: 0;
+}
+
+.error-overlay{
+    width: 70%;
+    max-width: 300px;
+
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+    
+    padding: 5px 0;
+
+    border: 1px solid var(--rosa-claro);
+    border-radius: 10px;
+
+    background-color: white;
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+    z-index: 100;
+}
+
+.error-overlay hr{
+    width: 100%;
+}
+
+.error-overlay span{
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--rosa-escuro);
+
+
+    display: block;
+    margin: 5px 0 5px 0px;
+
+    
+}
+
+.error-overlay label{
+    color: red;
+
+    margin: 15px;
+
+    display: block;
+    
+    font-weight: lighter;
+    font-size: 0.8rem;
+}
+.error-overlay button{
+    width: 80%;
+    max-width: 400px;
+    height: 40px;
+
+    margin: 20px 0;
+
+    border-radius: 25px;
+    border: none;
+    outline: none;
+
+    background-color: white;
+    border: 2px solid var(--rosa-claro);
+    color: var(--rosa-medio-claro);
+
+    font-size: 1rem;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: .2s;
+}
+
+.error-overlay button:hover{
+    background-color: var(--rosa-principal);
+    border: none;
+    color: white;
+}
+
+.navbar{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+
+    background-color: white;
+    border: 1px solid var(--rosa-escuro);
+    border-radius: 10px;
+
+    padding: 10px;
+
+    position: relative;
+    left: 50vw;
+    top: 10vh;
+    transform: translate(-50%, -50%);
+
+    width: 90%;
+    max-width: 550px;
+    max-height: 500px;
+}
+
+.navbar li{
+    list-style: none;
+    width: 90%;
+    max-height: 400px;
+
+    padding: 10px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    text-decoration: none;
+    color: #888780;
+    font-size: 10pt;
+    font-weight: bold;
+    transition: 0.4s;
+
+    background-color: white;
+    transition: 0.4s;
+}
+
+.navbar li:hover{
+    list-style: none;
+
+    color: var(--rosa-escuro);
+    background-color: var(--rosa-medio-claro);
+}
+
+#informations{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+
+    width: 90%;
+    max-width: 550px;
+    max-height: 500px;
+
+    border-radius: 10px;
+
+    background-color: white;
+    border: 1px solid var(--rosa-escuro);
+    padding: 10px;
+
+    position: relative;
+    left: 50vw;
+    top: 15vh;
+    transform: translate(-50%, -50%);
+}
+
+#informations li{
+    list-style: none;
+    width: 90%;
+    max-height: 400px;
+
+    padding: 10px;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+    color: var(--rosa-profundo);
+    font-size: 10pt;
+    font-weight: bold;
+    transition: 0.4s;
+
+    background-color: white;
+}
+
+#informations li span{
+    color: var(--rosa-principal);
+    font-size: 24pt;
+
+    display: block;
+}
+
+#pending-appointments{
+    width: 90%;
+    max-width: 600px;
+    max-height: 800px;
+
+    position: relative;
+    top: 32vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+
+    justify-content: space-between;
+    
+    padding: 35px 15px;
+
+    z-index: 10;
+}
+
+#pending-appointments h4{
+    color: var(--rosa-escuro);
+    font-size: 14pt;
+    font-weight: bold;
+
+    text-align: left;
+}
+
+#pending-appointments ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#pending-appointments .appt-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border: 1px solid #F4C0D1;
+    border-radius: 10px;
+    background: #fff;
+}
+
+#pending-appointments .appt-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+#pending-appointments .appt-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #4B1528;
+}
+
+#pending-appointments .appt-details {
+    font-size: 12px;
+    color: #72243E;
+}
+
+#pending-appointments .appt-actions {
+    display: flex;
+    gap: 8px;
+}
+
+#pending-appointments .btn-accept{
+    color: #3B6D11;
+    background-color: rgba(0, 243, 0, 0.411);
+}
+
+#pending-appointments .btn-accept:hover{
+    color: #3B6D11;
+    background-color: rgba(0, 243, 0, 0.582);
+}
+
+#pending-appointments .btn-reject{
+    color: #A32D2D;
+    background-color: rgba(255, 0, 0, 0.233);
+}
+
+#pending-appointments .btn-reject:hover{
+    color: #A32D2D;
+    background-color: rgba(255, 0, 0, 0.582);
+}
+
+#pending-appointments .btn-progress{
+    color: rgb(0, 0, 0);
+    background-color: rgba(231, 231, 0, 0.301);
+}
+
+#pending-appointments .btn-progress:hover{
+    color: rgb(0, 0, 0);
+    background-color: rgba(231, 231, 0, 0.658);
+}
+
+
+
+#pending-appointments button{
+    width: 100px;
+    height: 30px;
+
+    margin: 20px 0;
+
+    border-radius: 5px;
+    border: none;
+    outline: none;
+
+    
+
+    font-size: 8pt;
+    font-weight: bold;
+
+    display: flexbox;
+
+    cursor: pointer;
+    transition: .2s;
+}
+
+#user-list{
+    width: 90%;
+    max-width: 600px;
+    max-height: 800px;
+
+    position: relative;
+    top: 40vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+
+    justify-content: space-between;
+    
+    padding: 35px 15px;
+
+    z-index: 10;
+}
+
+#user-list h4{
+    color: var(--rosa-escuro);
+    font-size: 14pt;
+    font-weight: bold;
+
+    text-align: left;
+}
+
+#user-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#user-list .user-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border: 1px solid #F4C0D1;
+    border-radius: 10px;
+    background: #fff;
+}
+
+#user-list .user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+#user-list .user-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #4B1528;
+}
+
+#user-list .user-birthday {
+    font-size: 12px;
+    color: #72243E;
+}
+
+#user-list .user-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#user-list .user-email {
+    font-size: 14px;
+    font-weight: 600;
+    color: #4B1528;
+}
+
+#user-list .user-phone {
+    font-size: 12px;
+    color: #72243E;
+}
+
+#calendar{
+    width: 90%;
+    max-width: 600px;
+    max-height: 800px;
+
+    position: relative;
+    top: 25vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+
+    justify-content: space-between;
+    
+    margin-top: 40px;
+    padding: 35px 15px;
+
+    z-index: 10;
+}
+
+#calendar h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #4B1528;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #F4C0D1;
+}
+
+.calendar-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.calendar-table th {
+  font-size: 12px;
+  font-weight: 500;
+  color: #888780;
+  padding: 6px 0 10px;
+}
+
+.calendar-table td {
+  font-size: 13px;
+  color: #888780;
+  padding: 6px 4px;
+  width: 14.28%;
+}
+
+.calendar-table td.has-appt {
+  background: #F4C0D1;
+  color: #72243E;
+  font-weight: 600;
+  border-radius: 6px;
+}
+
+.calendar-table td.today {
+  background: #D4537E;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 6px;
+}
+
+.calendar-legend {
+  display: flex;
+  gap: 20px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: #72243E;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-box {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.legend-box.has-appt { background: #F4C0D1; }
+.legend-box.today    { background: #D4537E; }

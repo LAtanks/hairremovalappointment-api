@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/login.css">
+    <title>Cida's Depilação • Entrar na conta</title>
+</head>
+<body>
+    <main>
+
+        <div class="error-ovelay">
+            <span>Informação</span>
+            <hr>
+            <label id="error-message">Coxinha</label>
+            <button onclick="hideInfo">OK</button>
+        </div>
+
+        <div id="login">
+            <header>
+                <h3>Cida's Depilação</h3>
+                <span>Entrar na conta</span>
+            </header>
+
+            <div>
+                <label for="email">E-mail</label>
+                <input placeholder="maria@email.com" type="email" name="email" id="email">
+                <label for="email" class="error error-email"></label>
+            </div>
+
+            <div>
+                <label for="password">Senha</label>
+                <input placeholder="********" type="password" name="password" id="password">
+                <label for="password" class="error error-password"></label>
+            </div>     
+
+            <button type="submit" class="btn-submit">Entrar na conta</button>
+
+            <p>Não tem conta? <a href="register">Crie uma conta</a></p>
+        </div>
+    </main>
+
+    <script src="js/login.js"></script>
+</body>
+</html>
