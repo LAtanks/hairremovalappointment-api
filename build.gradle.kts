@@ -13,6 +13,10 @@ java {
     }
 }
 
+tasks.named<Jar>("jar") {
+    enabled = false  // ✅ desabilita o jar normal, fica só o bootJar
+}
+
 repositories {
     mavenCentral()
 }
