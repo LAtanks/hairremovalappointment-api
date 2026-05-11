@@ -15,6 +15,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 public class SecurityConfig {
@@ -35,12 +40,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/**").permitAll()
                         .requestMatchers(baseUrl + "/auth/**").permitAll()
+
 
                         .requestMatchers(HttpMethod.POST, baseUrl + "/appointment").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(HttpMethod.GET, baseUrl + "/appointment/my").hasAnyRole("USER", "ADMIN")
@@ -51,6 +59,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, baseUrl + "/appointment/{id}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, baseUrl + "/appointment/{id}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, baseUrl + "/appointment/{id}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PATCH, baseUrl + "/appointment/{id}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, baseUrl + "/user").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, baseUrl + "/user").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PATCH, baseUrl + "/user/{id}/promote").hasRole("ADMIN")
@@ -75,5 +84,18 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config)
             throws Exception {
         return config.getAuthenticationManager();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(List.of("http://127.0.0.1:5500"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/api/**", config);
+        return source;
     }
 }

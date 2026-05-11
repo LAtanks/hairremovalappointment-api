@@ -1,7 +1,7 @@
 package br.com.latanks.cidasdepilacao_api.models;
 
 import br.com.latanks.cidasdepilacao_api.models.enums.Payment;
-import br.com.latanks.cidasdepilacao_api.models.enums.Situation;
+import br.com.latanks.cidasdepilacao_api.models.enums.Status;
 import br.com.latanks.cidasdepilacao_api.models.enums.Type;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -35,7 +35,7 @@ public class Appointment {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "situation", nullable = false)
-    private Situation situation = Situation.PROGRESS;
+    private Status status = Status.PROGRESS;
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, updatable = false)

@@ -11,14 +11,13 @@ import org.mapstruct.Mapping;
 public interface AppointmentMapper {
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "situation", ignore = true)
     @Mapping(target = "user", ignore = true)
     Appointment toEntity(CreateAppointmentDTO dto);
 
     CreatedAppointmentDTO toResponseDTO(Appointment appointment);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "situation", ignore = true)
+
     @Mapping(target = "user", ignore = true)
     Appointment toEntity(UpdateAppointmentDTO dto);
 

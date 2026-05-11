@@ -3,6 +3,7 @@ package br.com.latanks.cidasdepilacao_api.services;
 import br.com.latanks.cidasdepilacao_api.dtos.AppointmentMapper;
 import br.com.latanks.cidasdepilacao_api.dtos.request.CreateAppointmentDTO;
 import br.com.latanks.cidasdepilacao_api.dtos.request.UpdateAppointmentDTO;
+import br.com.latanks.cidasdepilacao_api.dtos.request.UpdateStatusApptDTO;
 import br.com.latanks.cidasdepilacao_api.dtos.response.CreatedAppointmentDTO;
 import br.com.latanks.cidasdepilacao_api.exceptions.impl.InvalidCredentialsException;
 import br.com.latanks.cidasdepilacao_api.models.Appointment;
@@ -101,6 +102,17 @@ public class AppointmentService {
         );
 
         Utils.copyProperties(appointment, existingAppointment);
+
+        return this.mapper.toResponseDTO(this.appointmentRepository.save(existingAppointment));
+    }
+
+    @Transactional
+    public CreatedAppointmentDTO updateStatus(UUID id, UpdateStatusApptDTO situation){
+        var existingAppointment = this.appointmentRepository.findById(id).orElseThrow(
+                () -> new InvalidCredentialsException("Horario não cadastrado no sistema.")
+        );
+
+        Utils.copyProperties(situation, existingAppointment);
 
         return this.mapper.toResponseDTO(this.appointmentRepository.save(existingAppointment));
     }

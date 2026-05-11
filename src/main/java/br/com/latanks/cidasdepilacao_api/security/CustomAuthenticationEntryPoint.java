@@ -19,6 +19,8 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         this.objectMapper = objectMapper;
     }
 
+    
+
     @Override
     public void commence(HttpServletRequest request,
                          HttpServletResponse response,

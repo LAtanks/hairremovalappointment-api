@@ -2,6 +2,7 @@ package br.com.latanks.cidasdepilacao_api.controllers;
 
 import br.com.latanks.cidasdepilacao_api.dtos.request.CreateAppointmentDTO;
 import br.com.latanks.cidasdepilacao_api.dtos.request.UpdateAppointmentDTO;
+import br.com.latanks.cidasdepilacao_api.dtos.request.UpdateStatusApptDTO;
 import br.com.latanks.cidasdepilacao_api.dtos.response.CreatedAppointmentDTO;
 import br.com.latanks.cidasdepilacao_api.services.AppointmentService;
 
@@ -48,6 +49,11 @@ public class AppointmentController {
     @PutMapping("/{id}")
     public ResponseEntity<CreatedAppointmentDTO> update(@PathVariable("id") UUID id, @RequestBody UpdateAppointmentDTO appointment){
         return ResponseEntity.ok(this.service.update(id, appointment));
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<CreatedAppointmentDTO> updateStatus(@PathVariable("id") UUID id, @RequestBody UpdateStatusApptDTO status){
+        return ResponseEntity.ok(this.service.updateStatus(id, status));
     }
 
     @DeleteMapping("/{id}")

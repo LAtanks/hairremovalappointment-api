@@ -1,10 +1,10 @@
 package br.com.latanks.cidasdepilacao_api.models.enums;
 
-public enum Situation {
+public enum Status {
     DENIED("Negado"),
     ACCEPTED("Aceito"),
     PROGRESS("Andamento");
 
-    Situation(String situation) {
+    Status(String situation) {
     }
 }
