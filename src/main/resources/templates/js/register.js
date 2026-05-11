@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8080/api/v1"
+const BASE_URL = "https://hairremovalappointment.onrender.com/api/v1"
 
 let errorOvelay = document.querySelector(".error-ovelay");
 let errorMessage = errorOvelay.querySelector("#error-message");
