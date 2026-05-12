@@ -70,7 +70,7 @@ async function apiFetch(path, method = "GET", body = null) {
 
         if (!response.ok) {
             if(response.status == 400){
-                showErrorOverlay("Coloque as informações corretas");
+                //howErrorOverlay("Coloque as informações corretas");
                 return null;
             }else{
                 console.log(text)

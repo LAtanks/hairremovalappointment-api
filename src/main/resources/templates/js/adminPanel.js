@@ -23,8 +23,16 @@ function getAuthHeaders() {
 }
 
 function formatDate(dateInput) {
-    const date = new Date(dateInput);
-    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    const date = new Date();
+
+    //(5) [2026, 7, 31, 13, 10]
+    date.setDate(dateInput[2]);
+    date.setFullYear(dateInput[0])
+    date.setMonth(dateInput[1])
+    date.setHours(dateInput[3])
+    date.setMinutes(dateInput[4])
+
+    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} • ${date.getHours()} : ${date.getMinutes()}`;
 }
 
 function calculateAge(birthday) {
@@ -147,6 +155,8 @@ function createAppointmentCard(appt) {
     const details = document.createElement("span");
     details.classList.add("appt-details");
     details.textContent = `${formatDate(appt.horary)} • ${appt.type}`;
+
+    console.log(appt.horary)
 
     info.appendChild(name);
     info.appendChild(details);

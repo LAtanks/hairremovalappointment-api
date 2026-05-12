@@ -54,18 +54,26 @@ async function login() {
             })
         }
         );
-        
-        if (!response.ok) {
-            const text = await response.text(); // lê UMA vez só
-            console.log("Texto: " + text);
 
-            try {
-                const error = JSON.parse(text); // converte o texto já lido
-                showErrorOvelay(error.message);
-            } catch {
-                showErrorOvelay(error.message);
+        const text = await response.text();
+
+        let data = null;
+
+        try {
+            data = text ? JSON.parse(text) : null;
+        } catch {
+            data = text;
+        }
+
+        if (!response.ok) {
+            if(response.status == 400){
+                showErrorOverlay("Coloque as informações corretas");
+                return null;
+            }else{
+                console.log(text)
+                showErrorOverlay("Test" + JSON.parse(text).errors);
             }
-            return;
+            return null;
         }
 
         const { token } = await response.json();
@@ -77,7 +85,7 @@ async function login() {
         }, 2000);
 
     } catch (error) {
-        showErrorOvelay("Erro de conexão com o servidor");
+        showErrorOvelay("Erro de conexão com o servidor", error);
     }
 }
 
