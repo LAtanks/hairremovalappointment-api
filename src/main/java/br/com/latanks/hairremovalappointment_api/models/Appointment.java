@@ -2,7 +2,7 @@ package br.com.latanks.hairremovalappointment_api.models;
 
 import br.com.latanks.hairremovalappointment_api.models.enums.Payment;
 import br.com.latanks.hairremovalappointment_api.models.enums.Status;
-import br.com.latanks.hairremovalappointment_api.models.enums.Type;
+import br.com.latanks.hairremovalappointment_api.models.enums.Areas;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,15 +26,15 @@ public class Appointment {
     private LocalDateTime horary;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "type", nullable = false)
-    private Type type;
+    @Column(name = "areas", nullable = false)
+    private Areas areas;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "payment", nullable = false)
     private Payment payment;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "situation", nullable = false)
+    @Column(name = "status", nullable = false)
     private Status status = Status.PROGRESS;
 
     @OneToOne

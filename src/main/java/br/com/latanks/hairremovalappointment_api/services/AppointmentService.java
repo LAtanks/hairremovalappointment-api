@@ -7,6 +7,7 @@ import br.com.latanks.hairremovalappointment_api.dtos.request.UpdateStatusApptDT
 import br.com.latanks.hairremovalappointment_api.dtos.response.CreatedAppointmentDTO;
 import br.com.latanks.hairremovalappointment_api.exceptions.impl.InvalidCredentialsException;
 import br.com.latanks.hairremovalappointment_api.models.Appointment;
+import br.com.latanks.hairremovalappointment_api.models.enums.Areas;
 import br.com.latanks.hairremovalappointment_api.repositories.IAppointmentRepository;
 import br.com.latanks.hairremovalappointment_api.repositories.IUserRepository;
 import br.com.latanks.hairremovalappointment_api.utils.AuthUtils;
@@ -18,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class AppointmentService {
@@ -56,6 +59,12 @@ public class AppointmentService {
         user.setAppointment(entity);
 
         return this.mapper.toResponseDTO(this.appointmentRepository.save(entity));
+    }
+
+    @Transactional(readOnly = true)
+    public String getHairRemovalAreasList(){
+        var list = Stream.of(Areas.values()).map(Enum::name).collect(Collectors.joining(","));
+        return list;
     }
 
     @Transactional(readOnly = true)

@@ -1,0 +1,32 @@
+package br.com.latanks.hairremovalappointment_api.models.enums;
+
+public enum Areas {
+    UPPER_LIP,
+    CHIN,
+    CHEEKS,
+    FOREHEAD,
+    EYEBROWS,
+    NOSE,
+    EARS,
+    ARMPITS,
+    HALF_ARM,
+    FULL_ARM,
+    HANDS_AND_FINGERS,
+    CHEST,
+    ABDOMEN,
+    BELLY_LINE,
+    FULL_BACK,
+    LOWER_BACK,
+    SHOULDERS,
+    BASIC_BIKINI,
+    DEEP_BIKINI,
+    FULL_BRAZILIAN,
+    PERIANAL_AREA,
+    BUTTOCKS,
+    HALF_LEG,
+    THIGHS,
+    FULL_LEGS,
+    KNEES,
+    TOP_OF_FEET,
+    TOES
+}

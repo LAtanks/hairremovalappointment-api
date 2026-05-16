@@ -41,6 +41,11 @@ public class AppointmentController {
         return ResponseEntity.ok(this.service.getById(id));
     }
 
+    @GetMapping("/areas")
+    public ResponseEntity<String> getHairRemovalAreasList(){
+        return ResponseEntity.ok(this.service.getHairRemovalAreasList());
+    }
+
     @GetMapping
     public ResponseEntity<List<CreatedAppointmentDTO>> getRegisteredsAppointments(){
         return ResponseEntity.ok(this.service.getRegisteredsAppointments());

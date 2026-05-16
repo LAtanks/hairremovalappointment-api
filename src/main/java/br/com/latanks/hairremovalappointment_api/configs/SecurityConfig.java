@@ -50,6 +50,7 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.POST, baseUrl + "/appointment").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(HttpMethod.GET, baseUrl + "/appointment/my").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, baseUrl + "/appointment/areas").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(HttpMethod.GET, baseUrl + "/user/my").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(HttpMethod.PUT, baseUrl + "/user/{id}").hasAnyRole("USER", "ADMIN")
 
